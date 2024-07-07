@@ -1,0 +1,13 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<h2>Bulletin Board Posts</h2>
+<ul>
+    {% for post in posts %}
+    <li>
+        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'post_create' %}">Create a new post</a>
+{% endblock %}
