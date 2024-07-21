@@ -12,6 +12,7 @@ class NoteListView(ListView):
 class NoteDetailView(DetailView):
     model = StickyNote
     template_name = 'notes/note_detail.html'
+    context_object_name = 'note'
 
 class NoteCreateView(CreateView):
     model = StickyNote

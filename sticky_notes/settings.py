@@ -10,14 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-
+import sys
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 from pathlib import Path
@@ -35,7 +35,8 @@ SECRET_KEY = 'django-insecure-j)w9eo2rnikecf@m8qbdbqio&2s8m^8fv_g+!a9b39qo)j7=9e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -84,12 +85,17 @@ WSGI_APPLICATION = 'sticky_notes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if 'test' in sys.argv or 'test_coverage' in sys.argv:  # Adjusting for test command or coverage tests
+    DATABASES['default']['NAME'] = ':memory:'
 
 
 # Password validation
@@ -128,7 +134,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
